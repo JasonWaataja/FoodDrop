@@ -32,6 +32,10 @@ public class BigData {
 	
 	private ArrayList<Giveaway> giveaways;//should be a LinkedHashMap
 	
+	/**
+	 * Constructor. Sets up a new data object that loads a file called "saves" in the specified folder.
+	 * @param dataDir the directory in which to store things
+	 */
 	public BigData(File dataDir){
 		if(dataDir == null || (dataDir.exists() && !dataDir.isDirectory())) throw new IllegalArgumentException();
 		if(!dataDir.exists()) dataDir.mkdir();
@@ -40,10 +44,17 @@ public class BigData {
 		loadSavedData();
 	}
 	
+	/**
+	 *
+	 * @return The ArrayList in which giveaway objects are stored.
+	 */
 	public ArrayList<Giveaway> getGiveaways(){
 		return giveaways;
 	}
 	
+	/**
+	 * Loads saved data from the file. If changes have been made since this method was last called, those will be REVERTED.
+	 */
 	public void loadSavedData(){
 		try{
 			ArrayList<Giveaway> gs = new ArrayList<Giveaway>();
@@ -133,6 +144,9 @@ public class BigData {
 		}
 	}
 	
+	/**
+	 * Saves the giveaway objects stored within the error.
+	 */
 	@SuppressWarnings("unchecked")
 	public void saveGiveaways(){
 		try {
