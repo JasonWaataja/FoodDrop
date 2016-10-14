@@ -152,7 +152,9 @@ public class DonatorGui {
 	
 	private void sendGiveawaysToServer() {
 		for (Giveaway giveaway : giveaways.values()) {
-			// Send to server.
+			System.out.println(giveaway);
+			boolean success = ObjectSender.addGiveaway(giveaway);
+			System.out.println(success);
 		}
 	}
 }
