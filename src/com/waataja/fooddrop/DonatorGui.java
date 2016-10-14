@@ -50,6 +50,8 @@ public class DonatorGui {
 	private JCheckBox foodbankBox;
 	private JCheckBox peopleBox;
 	
+	private FoodDonator donator;
+	
 	public DonatorGui() {
 		giveaways = new HashMap<String, Giveaway>();
 		
@@ -79,7 +81,20 @@ public class DonatorGui {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Giveaway giveaway = new Giveaway(null, null, null, null, null);
+				boolean acceptPeople = peopleBox.isSelected();
+				boolean acceptFoodbank = foodbankBox.isSelected();
+				Giveaway.GiveawayType type = Giveaway.GiveawayType.ANY;
+				if (!(acceptPeople ^ acceptFoodbank)) {
+					type = Giveaway.GiveawayType.ANY;
+				} else {
+					if (acceptPeople)
+						type = Giveaway.GiveawayType.PEOPLE;
+					if (acceptFoodbank)
+						type = Giveaway.GiveawayType.FOODBANK;
+				}
+				
+				updateDonator();
+				Giveaway giveaway = new Giveaway(self.donator, null, null, type, "Currently Available");
 				CreateGiveawayGui.createGiveawayDialog(giveaway, self);
 				self.updateList();
 			}});
@@ -118,6 +133,11 @@ public class DonatorGui {
 
 	public void setGiveaways(HashMap<String, Giveaway> giveaways) {
 		this.giveaways = giveaways;
+	}
+	
+	public void updateDonator() {
+		donator.setName(nameField.getName());
+		donator.setAddress(addressField.getText());
 	}
 	
 }
