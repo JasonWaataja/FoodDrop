@@ -7,14 +7,12 @@ public class FoodReceiver {
 	}
 	
 	private ReceiverType type;
-	private double latitude;
-	private double longitude;
+	private LatLong l;
 	
 	public FoodReceiver(ReceiverType type, double latitude, double longitude) {
 		super();
 		this.type = type;
-		this.latitude = latitude;
-		this.longitude = longitude;
+		this.l = new LatLong(latitude, longitude);
 	}
 	
 	public ReceiverType getType() {
@@ -24,15 +22,18 @@ public class FoodReceiver {
 		this.type = type;
 	}
 	public double getLatitude() {
-		return latitude;
+		return l.getLat();
 	}
 	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+		l.setLat(latitude);
 	}
 	public double getLongitude() {
-		return longitude;
+		return l.getLon();
 	}
 	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+		l.setLon(longitude);
+	}
+	public LatLong getLatLong() {
+		return l;
 	}
 }
