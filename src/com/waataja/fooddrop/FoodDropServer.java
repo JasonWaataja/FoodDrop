@@ -1,4 +1,4 @@
-package com.waataja.fooddrop.server;
+package com.waataja.fooddrop;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,7 +6,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
-import com.waataja.fooddrop.*;
 import com.waataja.fooddrop.FoodMessage.MessageType;
 
 public class FoodDropServer {
