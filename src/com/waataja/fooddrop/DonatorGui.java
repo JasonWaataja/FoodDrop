@@ -156,9 +156,7 @@ public class DonatorGui {
 	
 	private void sendGiveawaysToServer() {
 		for (Giveaway giveaway : giveaways.values()) {
-			System.out.println(giveaway);
 			// Send to server.
 		}
 	}
-	
 }

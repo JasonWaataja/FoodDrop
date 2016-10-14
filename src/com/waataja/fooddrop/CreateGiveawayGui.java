@@ -28,6 +28,7 @@ public class CreateGiveawayGui implements ActionListener {
 		frame.setVisible(true);
 
 		nameField = new JTextField();
+		nameField.setText("Name of giveaway");
 		frame.add(BorderLayout.NORTH, nameField);
 		itemsArea = new JTextArea();
 		frame.add(BorderLayout.CENTER, itemsArea);
