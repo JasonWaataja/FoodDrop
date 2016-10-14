@@ -36,7 +36,6 @@ public class LatLong {
 				}
 				System.out.println(s);
 			}
-			double[] latLong = new double[2];
 			String s1 = read.get(line + 1);
 			s1 = s1.substring(s1.indexOf(":") + 2, s1.indexOf(","));
 			String s2 = read.get(line + 2);
