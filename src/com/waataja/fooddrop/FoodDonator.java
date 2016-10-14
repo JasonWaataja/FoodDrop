@@ -6,6 +6,7 @@ public class FoodDonator {
 	
 	private String address;
 	
+	
 	public FoodDonator(String name, String address, String description) {
 		super();
 		this.name = name;
