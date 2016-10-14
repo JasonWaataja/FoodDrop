@@ -20,9 +20,13 @@ public class ReceiverGui {
 		receiver = new FoodReceiver(FoodReceiver.ReceiverType.PERSON, 0, 0);
 		Panel p = new Panel();
 		p.setLayout(new BorderLayout());
+		JPanel northPanel = new JPanel();
+		northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.Y_AXIS));
 		north = new JTextField("My location");
-		p.add(north,BorderLayout.NORTH);
+		p.add(northPanel,BorderLayout.NORTH);
+		northPanel.add(north);
 		tf = new JTextArea("");		
+		tf.setEditable(false);
 		p.add(tf, BorderLayout.CENTER);
 		b = new JButton("Get giveaways");
 		b.addActionListener(new ActionListener(){
@@ -50,11 +54,14 @@ public class ReceiverGui {
 		comboBox = new JComboBox<String>();
 		comboBox.addItem("I am a person");
 		comboBox.addItem("I am a foodbank");
+		//p.add(BorderLayout.WEST, comboBox);
+		northPanel.add(comboBox);
 		p.add(b, BorderLayout.SOUTH);
 		JFrame j = new JFrame();
 		j.setContentPane(p);
 		j.setSize(960, 540);
 		j.setVisible(true);
+		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 
 	public static void main(String[] args) {
