@@ -52,8 +52,11 @@ public class DonatorGui {
 	
 	private FoodDonator donator;
 	
+	private JButton sendButton;
+	
 	public DonatorGui() {
 		giveaways = new HashMap<String, Giveaway>();
+		donator = new FoodDonator("Test Name", "Test Address", "Test Description");
 		
 		mainWindow = new JFrame();
 		mainWindow.setTitle(WINDOW_TITLE);
@@ -114,6 +117,17 @@ public class DonatorGui {
 		infoPanel.add(foodbankBox);
 		infoPanel.add(peopleBox);
 		mainWindow.add(BorderLayout.EAST, infoPanel);
+		
+		sendButton = new JButton("Send to server");
+		sendButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				sendGiveawaysToServer();
+			}
+			
+		});
+		mainWindow.add(BorderLayout.WEST, sendButton);
 	}
 	
 	public void updateList() {
@@ -138,6 +152,13 @@ public class DonatorGui {
 	public void updateDonator() {
 		donator.setName(nameField.getName());
 		donator.setAddress(addressField.getText());
+	}
+	
+	private void sendGiveawaysToServer() {
+		for (Giveaway giveaway : giveaways.values()) {
+			System.out.println(giveaway);
+			// Send to server.
+		}
 	}
 	
 }
