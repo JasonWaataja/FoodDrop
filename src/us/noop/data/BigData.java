@@ -69,7 +69,7 @@ public class BigData {
 		}
 	}
 
-	public Giveaway parseGiveaway(JSONObject dat) throws FileNotFoundException {
+	private Giveaway parseGiveaway(JSONObject dat) throws FileNotFoundException {
 		Giveaway g = new Giveaway(parseDonator((JSONObject) dat.get("donator")), parseDate(dat.get("start")), parseDate(dat.get("end")), parseGiveawayType(dat.get("type")), (String) dat.get("availability"));
 		g.setItems(parseItemList((JSONArray) dat.get("items")));
 		return g;
@@ -111,7 +111,7 @@ public class BigData {
 	
 	private HashMap<Integer, ArrayList<FoodDonator>> donators;
 	
-	public FoodDonator parseDonator(JSONObject donator){
+	private FoodDonator parseDonator(JSONObject donator){
 		String name = (String) donator.get("name");
 		String address = (String) donator.get("address");
 		String desc = (String) donator.get("desc");
@@ -205,7 +205,7 @@ public class BigData {
 		return jo;
 	}
 	
-	public String dateString(GregorianCalendar g){
+	private String dateString(GregorianCalendar g){
 		return g.get(GregorianCalendar.YEAR) + " " + g.get(GregorianCalendar.MONTH) + " " + g.get(GregorianCalendar.DAY_OF_MONTH);
 	}
 }
