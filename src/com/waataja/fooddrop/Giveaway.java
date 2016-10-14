@@ -1,12 +1,13 @@
 package com.waataja.fooddrop;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
 public class Giveaway {
 	
 	private FoodDonator donator;
+	private List<FoodItem> items;
 	
 	public enum GiveawayType {
 		ANY, FOODBANK, PEOPLE
@@ -59,6 +60,14 @@ public class Giveaway {
 
 	public void setAvailability(String availability) {
 		this.availability = availability;
+	}
+
+	public List<FoodItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<FoodItem> items) {
+		this.items = items;
 	}
 
 	private GregorianCalendar start;
