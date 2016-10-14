@@ -22,6 +22,7 @@ import com.waataja.fooddrop.FoodDonator;
 import com.waataja.fooddrop.FoodItem;
 import com.waataja.fooddrop.Giveaway;
 import com.waataja.fooddrop.Giveaway.GiveawayType;
+import static java.lang.Math.toIntExact;
 
 public class BigData {
 	
@@ -34,6 +35,7 @@ public class BigData {
 	public BigData(File dataDir){
 		if(dataDir == null || (dataDir.exists() && !dataDir.isDirectory())) throw new IllegalArgumentException();
 		if(!dataDir.exists()) dataDir.mkdir();
+		this.dataDir = dataDir;
 		parser = new JSONParser();
 		loadSavedData();
 	}
@@ -43,34 +45,39 @@ public class BigData {
 	}
 	
 	public void loadSavedData(){
-		ArrayList<Giveaway> gs = new ArrayList<Giveaway>();
-		File[] contents = dataDir.listFiles((File f) -> !f.isDirectory());
-		donators = new HashMap<Integer, ArrayList<FoodDonator>>();
-		for(File f : contents){
-			try{
-				gs.add(parseGiveaway(f));
-			}catch(Exception e){
-				e.printStackTrace();
+		try{
+			ArrayList<Giveaway> gs = new ArrayList<Giveaway>();
+			File s = new File(dataDir, "save");
+			System.out.println(s.getAbsolutePath());
+			donators = new HashMap<Integer, ArrayList<FoodDonator>>();
+			if(!s.exists()){
+				giveaways = gs;
+				return;
 			}
-		}
-		giveaways = gs;
-	}
-
-	public Giveaway parseGiveaway(File f) throws FileNotFoundException {
-		try {
-			JSONObject dat = (JSONObject) parser.parse(new FileReader(f));
-			Giveaway g = new Giveaway(parseDonator((JSONObject) dat.get("donator")), parseDate(dat.get("start")), parseDate(dat.get("end")), parseGiveawayType(dat.get("type")), (String) dat.get("availability"));
-			g.setItems(parseItemList((JSONArray) dat.get("items")));
-		} catch (IOException | ParseException e) {
+			JSONArray ar = (JSONArray) ((JSONObject) parser.parse(new FileReader(s))).get("saves");
+			Iterator<?> it = ar.iterator();
+			while(it.hasNext()){
+				try{
+					gs.add(parseGiveaway((JSONObject) it.next()));
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+			giveaways = gs;
+		}catch(IOException | ParseException e){
 			e.printStackTrace();
 		}
-		return null;
+	}
+
+	public Giveaway parseGiveaway(JSONObject dat) throws FileNotFoundException {
+		Giveaway g = new Giveaway(parseDonator((JSONObject) dat.get("donator")), parseDate(dat.get("start")), parseDate(dat.get("end")), parseGiveawayType(dat.get("type")), (String) dat.get("availability"));
+		g.setItems(parseItemList((JSONArray) dat.get("items")));
+		return g;
 	}
 	
 	private List<FoodItem> parseItemList(JSONArray jsonArray) {
 		List<FoodItem> r = new ArrayList<FoodItem>();
-		@SuppressWarnings("rawtypes")
-		Iterator it = jsonArray.iterator();
+		Iterator<?> it = jsonArray.iterator();
 		while(it.hasNext()){
 			r.add(parseFoodItem((JSONObject) it.next()));
 		}
@@ -78,7 +85,7 @@ public class BigData {
 	}
 
 	private FoodItem parseFoodItem(JSONObject next) {
-		return new FoodItem((String) next.get("name"), (String) next.get("desc"), (int) next.get("amount"));
+		return new FoodItem((String) next.get("name"), (String) next.get("desc"), toIntExact((long) next.get("amount")));
 	}
 
 	private GiveawayType parseGiveawayType(Object object) {
@@ -126,28 +133,32 @@ public class BigData {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void saveGiveaways(){
 		try {
-		File saves = new File(dataDir, "save");
-		saves.createNewFile();
-		JSONArray gives = new JSONArray();
-		for(Giveaway g : giveaways){
-			gives.add(jsonGiveaway(g));
-		}
-		JSONObject obj = new JSONObject();
-		obj.put("saves", gives);
-		FileWriter fw = new FileWriter(saves);
-		fw.write(obj.toJSONString());
+			File saves = new File(dataDir, "save");
+			saves.createNewFile();
+			JSONArray gives = new JSONArray();
+			for(Giveaway g : giveaways){
+				gives.add(jsonGiveaway(g));
+			}
+			JSONObject obj = new JSONObject();
+			obj.put("saves", gives);
+			FileWriter fw = new FileWriter(saves);
+			fw.write(obj.toJSONString());
+			fw.flush();
+			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private JSONObject jsonGiveaway(Giveaway g) {
 		JSONObject ts = new JSONObject();
 		ts.put("items", jsonItemList(g.getItems()));
 		ts.put("start", dateString(g.getStart()));
-		ts.put("end", g.getEnd());
+		ts.put("end", dateString(g.getEnd()));
 		ts.put("availability", g.getAvailability());
 		ts.put("donator", jsonDonator(g.getDonator()));
 		ts.put("type", jsonGiveawayType(g.getType()));
@@ -167,6 +178,7 @@ public class BigData {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private JSONObject jsonDonator(FoodDonator donator) {
 		JSONObject jo = new JSONObject();
 		jo.put("name", donator.getName());
@@ -184,6 +196,7 @@ public class BigData {
 		return r;
 	}
 
+	@SuppressWarnings("unchecked")
 	private JSONObject jsonFoodItem(FoodItem f) {
 		JSONObject jo = new JSONObject();
 		jo.put("name", f.getName());
