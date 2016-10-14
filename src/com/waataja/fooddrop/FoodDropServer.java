@@ -17,6 +17,7 @@ import us.noop.data.BigData;
 
 public class FoodDropServer {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		BigData database = new BigData(new File("giveaways"));
 		ServerSocket servSock = null;
@@ -29,7 +30,6 @@ public class FoodDropServer {
 		}
 		try {
 			servSock.setReuseAddress(true);
-			servSock.setSoTimeout(10000);
 		} catch (SocketException e1) {
 			System.out.println("Unable to set socket properties.");
 			e1.printStackTrace();
@@ -38,6 +38,7 @@ public class FoodDropServer {
 		while (true) {
 			try {
 				Socket sock = servSock.accept();
+				sock.setSoTimeout(10000);
 				try {
 					ObjectInputStream reader = new ObjectInputStream(sock.getInputStream());
 					FoodMessage msg = (FoodMessage) reader.readObject();
