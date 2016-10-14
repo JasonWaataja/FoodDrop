@@ -17,7 +17,6 @@ import us.noop.data.BigData;
 
 public class FoodDropServer {
 
-	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		BigData database = new BigData(new File("giveaways"));
 		ServerSocket servSock = null;

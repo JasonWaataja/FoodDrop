@@ -82,7 +82,7 @@ public class LatLong {
 
 	}
 
-	public static ArrayList<LatLong> sortAll(LatLong p1, ArrayList<LatLong> l1) {
+	public static ArrayList<LatLong> sortAll(final LatLong p1, ArrayList<LatLong> l1) {
 		l1.sort(new Comparator<LatLong>() {
 
 			@Override
@@ -96,7 +96,7 @@ public class LatLong {
 
 	}
 	
-	public static ArrayList<Giveaway> sortAll(FoodReceiver f1, ArrayList<Giveaway> al) {
+	public static ArrayList<Giveaway> sortAll(final FoodReceiver f1, ArrayList<Giveaway> al) {
 		al.sort(new Comparator<Giveaway>() {
 
 			@Override
