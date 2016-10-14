@@ -12,7 +12,7 @@ public class Giveaway {
 		ANY, FOODBANK, PEOPLE
 	}
 
-	public Giveaway(FoodDonator donator, Date start, Date end, GiveawayType type, String availability) {
+	public Giveaway(FoodDonator donator, GregorianCalendar start, GregorianCalendar end, GiveawayType type, String availability) {
 		super();
 		this.donator = donator;
 		this.start = start;
@@ -29,19 +29,19 @@ public class Giveaway {
 		this.donator = donator;
 	}
 
-	public Date getStart() {
+	public GregorianCalendar getStart() {
 		return start;
 	}
 
-	public void setStart(Date start) {
+	public void setStart(GregorianCalendar start) {
 		this.start = start;
 	}
 
-	public Date getEnd() {
+	public GregorianCalendar getEnd() {
 		return end;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(GregorianCalendar end) {
 		this.end = end;
 	}
 
@@ -61,8 +61,8 @@ public class Giveaway {
 		this.availability = availability;
 	}
 
-	private Date start;
-	private Date end;
+	private GregorianCalendar start;
+	private GregorianCalendar end;
 	
 	private GiveawayType type;
 	
