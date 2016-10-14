@@ -14,7 +14,7 @@ public class ObjectSender {
 	@SuppressWarnings("unchecked")
 	public static List<Giveaway> getGiveaways(FoodReceiver reciever) {
 		try {
-			Socket sock = new Socket("psv3.org", 8792);
+			Socket sock = new Socket("www.psv3.org", 8792);
 			try {
 				ObjectOutputStream writer = new ObjectOutputStream(sock.getOutputStream());
 				writer.writeObject(reciever);
@@ -51,7 +51,7 @@ public class ObjectSender {
 	
 	public static boolean addGiveaway(Giveaway giveaway) {
 		try {
-			Socket sock = new Socket("psv3.org", 8792);
+			Socket sock = new Socket("www.psv3.org", 8792);
 			try {
 				ObjectOutputStream writer = new ObjectOutputStream(sock.getOutputStream());
 				writer.writeObject(giveaway);
