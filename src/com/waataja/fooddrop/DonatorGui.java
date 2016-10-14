@@ -73,7 +73,7 @@ public class DonatorGui {
 		buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
 		//mainWindow.add(BorderLayout.SOUTH, buttonsPanel);
-		final DonatorGui self = this;
+		DonatorGui self = this;
 		
 		addButton = new JButton("Add Giveaway");
 		addButton.addActionListener(new ActionListener(){
