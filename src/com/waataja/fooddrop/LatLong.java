@@ -3,13 +3,17 @@ package com.waataja.fooddrop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class LatLong {
+public class LatLong implements Serializable {
+	
+	public static final long serialVersionUID = 739847028;
+	
 	private double lat;
 	private double lon;
 

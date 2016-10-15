@@ -19,7 +19,7 @@ public class ObjectSender {
 				ObjectOutputStream writer = new ObjectOutputStream(sock.getOutputStream());
 				writer.writeObject(new FoodMessage(MessageType.REQUEST, reciever));
 				writer.flush();
-				writer.close();
+				//writer.close();
 				ObjectInputStream reader = new ObjectInputStream(sock.getInputStream());
 				FoodMessage msg = (FoodMessage) reader.readObject();
 				List<Giveaway> giveaways = null;
@@ -28,7 +28,7 @@ public class ObjectSender {
 				} else {
 					System.out.println("Illegal message type");
 				}
-				reader.close();
+				//reader.close();
 				sock.close();
 				return giveaways;
 			} catch (IOException e) {

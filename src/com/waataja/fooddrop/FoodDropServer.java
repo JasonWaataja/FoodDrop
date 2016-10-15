@@ -43,25 +43,27 @@ public class FoodDropServer {
 				try {
 					ObjectInputStream reader = new ObjectInputStream(sock.getInputStream());
 					FoodMessage msg = (FoodMessage) reader.readObject();
-					reader.close();
+					//reader.close();
 					if (msg.getType() == MessageType.REQUEST) {
 						FoodReceiver receiver = (FoodReceiver) msg.getObject();
 						ArrayList<Giveaway> giveaways = new ArrayList<Giveaway>();
 						if (receiver.getType() == ReceiverType.PERSON) {
 							for (int i = database.getGiveaways().size() - 1; i >= 0; i--)
-								if (database.getGiveaways().get(i).getType() == GiveawayType.ANY || database.getGiveaways().get(i).getType() == GiveawayType.PEOPLE)
+								if (database.getGiveaways().get(i).getType() == GiveawayType.ANY || 
+										database.getGiveaways().get(i).getType() == GiveawayType.PEOPLE)
 									giveaways.add(database.getGiveaways().get(i));
 						} else {
 							for (int i = giveaways.size() - 1; i >= 0; i--)
-								if (database.getGiveaways().get(i).getType() == GiveawayType.ANY || database.getGiveaways().get(i).getType() == GiveawayType.FOODBANK)
+								if (database.getGiveaways().get(i).getType() == GiveawayType.ANY || 
+										database.getGiveaways().get(i).getType() == GiveawayType.FOODBANK)
 									giveaways.add(database.getGiveaways().get(i));
 						}
 						giveaways = LatLong.sortAll(receiver, giveaways);
-						giveaways = (ArrayList<Giveaway>) giveaways.subList(0, Math.min(5, giveaways.size()));
+						giveaways = new ArrayList<Giveaway>(giveaways.subList(0, Math.min(5, giveaways.size())));
 						ObjectOutputStream writer = new ObjectOutputStream(sock.getOutputStream());
 						writer.writeObject(new FoodMessage(MessageType.RETURN, giveaways));
 						writer.flush();
-						writer.close();
+						//writer.close();
 					} else if (msg.getType() == MessageType.ADD) {
 						Giveaway giveaway = (Giveaway) msg.getObject();
 						database.getGiveaways().add(giveaway);

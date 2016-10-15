@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.swing.*;
 
-import com.sun.xml.internal.bind.v2.runtime.Location;
-
 public class ReceiverGui {
 	private JTextArea tf;
 	private JTextField north;
@@ -65,6 +63,7 @@ public class ReceiverGui {
 		}
 
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		ReceiverGui gui = new ReceiverGui();
 	}
 	
