@@ -3,6 +3,7 @@ package com.waataja.fooddrop;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import javax.swing.BoxLayout;
@@ -93,7 +94,7 @@ public class DonatorGui {
 				}
 				
 				updateDonator();
-				Giveaway giveaway = new Giveaway(self.donator, null, null, type, "Currently Available");
+				Giveaway giveaway = new Giveaway(self.donator, new GregorianCalendar(2016, 10, 14), new GregorianCalendar(2016, 10, 15), type, "Currently Available");
 				CreateGiveawayGui.createGiveawayDialog(giveaway, self);
 				self.updateList();
 			}});
