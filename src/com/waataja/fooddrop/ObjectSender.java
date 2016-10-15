@@ -14,10 +14,10 @@ public class ObjectSender {
 	@SuppressWarnings("unchecked")
 	public static List<Giveaway> getGiveaways(FoodReceiver reciever) {
 		try {
-			Socket sock = new Socket("www.psv3.org", 8792);
+			Socket sock = new Socket("www.psv3.org", 8729);
 			try {
 				ObjectOutputStream writer = new ObjectOutputStream(sock.getOutputStream());
-				writer.writeObject(reciever);
+				writer.writeObject(new FoodMessage(MessageType.REQUEST, reciever));
 				writer.flush();
 				writer.close();
 				ObjectInputStream reader = new ObjectInputStream(sock.getInputStream());
@@ -51,10 +51,10 @@ public class ObjectSender {
 	
 	public static boolean addGiveaway(Giveaway giveaway) {
 		try {
-			Socket sock = new Socket("www.psv3.org", 8792);
+			Socket sock = new Socket("www.psv3.org", 8729);
 			try {
 				ObjectOutputStream writer = new ObjectOutputStream(sock.getOutputStream());
-				writer.writeObject(giveaway);
+				writer.writeObject(new FoodMessage(MessageType.ADD, giveaway));
 				writer.flush();
 				writer.close();
 				sock.close();

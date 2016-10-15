@@ -39,6 +39,7 @@ public class FoodDropServer {
 			try {
 				Socket sock = servSock.accept();
 				sock.setSoTimeout(10000);
+				System.out.println("Established connection");
 				try {
 					ObjectInputStream reader = new ObjectInputStream(sock.getInputStream());
 					FoodMessage msg = (FoodMessage) reader.readObject();
@@ -57,9 +58,8 @@ public class FoodDropServer {
 						}
 						giveaways = LatLong.sortAll(receiver, giveaways);
 						giveaways = (ArrayList<Giveaway>) giveaways.subList(0, Math.min(5, giveaways.size()));
-						FoodMessage giveList = new FoodMessage(MessageType.RETURN, giveaways);
 						ObjectOutputStream writer = new ObjectOutputStream(sock.getOutputStream());
-						writer.writeObject(giveList);
+						writer.writeObject(new FoodMessage(MessageType.RETURN, giveaways));
 						writer.flush();
 						writer.close();
 					} else if (msg.getType() == MessageType.ADD) {

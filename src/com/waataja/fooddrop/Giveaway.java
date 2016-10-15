@@ -1,10 +1,12 @@
 package com.waataja.fooddrop;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-
-public class Giveaway {
+public class Giveaway implements Serializable {
+	
+	public static final long serialVersionUID = 802254831;
 	
 	private FoodDonator donator;
 	private List<FoodItem> items;

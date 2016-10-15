@@ -1,6 +1,10 @@
 package com.waataja.fooddrop;
 
-public class FoodReceiver {
+import java.io.Serializable;
+
+public class FoodReceiver implements Serializable {
+	
+	public static final long serialVersionUID = 510566894;
 	
 	public enum ReceiverType {
 		PERSON, FOODBANK

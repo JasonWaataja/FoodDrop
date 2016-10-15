@@ -1,6 +1,10 @@
 package com.waataja.fooddrop;
 
-public class FoodDonator {
+import java.io.Serializable;
+
+public class FoodDonator implements Serializable {
+	
+	public static final long serialVersionUID = 321151475;
 	
 	private String name;
 	
