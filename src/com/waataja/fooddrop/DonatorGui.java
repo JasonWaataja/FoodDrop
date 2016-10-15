@@ -147,7 +147,7 @@ public class DonatorGui {
 	}
 	
 	public void updateDonator() {
-		donator.setName(nameField.getName());
+		donator.setName(nameField.getText());
 		donator.setAddress(addressField.getText());
 	}
 	
